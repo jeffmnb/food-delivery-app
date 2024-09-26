@@ -38,5 +38,9 @@ export const S = {
       cursor: pointer;
       background-color: ${({ theme }) => theme.colors.red_500};
     }
+
+    &:disabled {
+      opacity: 0.5;
+    }
   `,
 }

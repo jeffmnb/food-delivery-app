@@ -1,7 +1,7 @@
 import { S } from "./SignIn.styles"
 import Lottie from "lottie-react"
 import DeliveryLottie from "../../assets/delivey-lottie.json"
-import { FormLogin } from "./components/FormLogin"
+import { LoginForm } from "./components/LoginForm"
 import { useSignInPage } from "./SignIn.logic"
 
 export const Signin = () => {
@@ -22,7 +22,7 @@ export const Signin = () => {
       <S.LoginArea>
         <S.LoginHeaderTitle>Novo estabelecimento</S.LoginHeaderTitle>
         <S.FormWrapper>
-          <FormLogin onClickLogin={handleSignIn} />
+          <LoginForm onClickLogin={handleSignIn} />
         </S.FormWrapper>
       </S.LoginArea>
     </S.Container>
