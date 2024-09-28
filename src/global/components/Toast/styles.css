@@ -1,0 +1,10 @@
+li {
+    margin: 0.625rem;
+    padding: 0.625rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.closeButton {
+    margin-left: 98%;
+}

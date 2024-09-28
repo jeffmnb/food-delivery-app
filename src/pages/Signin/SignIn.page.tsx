@@ -3,6 +3,7 @@ import Lottie from "lottie-react"
 import DeliveryLottie from "../../assets/delivey-lottie.json"
 import { LoginForm } from "./components/LoginForm"
 import { useSignInPage } from "./SignIn.logic"
+import { Toast } from "../../global/components/Toast"
 
 export const Signin = () => {
   const { handleSignIn } = useSignInPage()
@@ -25,6 +26,7 @@ export const Signin = () => {
           <LoginForm onClickLogin={handleSignIn} />
         </S.FormWrapper>
       </S.LoginArea>
+      <Toast richColors position="bottom-right" />
     </S.Container>
   )
 }
