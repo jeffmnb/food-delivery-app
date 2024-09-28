@@ -1,3 +1,2 @@
 - colocar as fontes corretas
 - configurar theme dark/light
-- colocar input e botao como global

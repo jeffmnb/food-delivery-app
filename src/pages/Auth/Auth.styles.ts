@@ -1,6 +1,8 @@
 import { styled } from "styled-components"
 import { Pizza } from "lucide-react"
 
+type FormWrapperProps = { isSignInSelected: boolean }
+
 export const S = {
   Container: styled.div`
     display: flex;
@@ -32,7 +34,7 @@ export const S = {
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.gray_400};
   `,
-  LoginArea: styled.div`
+  AuthArea: styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -42,16 +44,18 @@ export const S = {
     flex: 1.2;
     color: gray;
   `,
-  LoginHeaderTitle: styled.p`
+  AuthHeaderTitle: styled.p`
     align-self: flex-end;
     &:hover {
       cursor: pointer;
     }
   `,
-  FormWrapper: styled.div`
+  FormWrapper: styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== "isSignInSelected",
+  })<FormWrapperProps>`
     position: absolute;
     align-self: center;
-    top: 36vh;
-    width: fit-content;
+    top: ${({ isSignInSelected }) => (isSignInSelected ? "36vh" : "20vh")};
+    max-width: 22vw;
   `,
 }
