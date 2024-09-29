@@ -21,7 +21,14 @@ export const useAuthPage = () => {
     })
   }
 
-  const handleSubmitSignUp = () => navigate("/signup")
+  const handleSubmitSignUp = () => {
+    showToast({
+      message: "Cadastro realizado com sucesso!",
+      description: "Bem-vindo(a)",
+      type: "success",
+      onAutoClose: () => navigate("/"),
+    })
+  }
 
   return {
     isSignInSelected,

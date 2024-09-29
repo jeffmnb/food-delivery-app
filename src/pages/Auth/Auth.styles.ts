@@ -57,5 +57,10 @@ export const S = {
     align-self: center;
     top: ${({ isSignInSelected }) => (isSignInSelected ? "36vh" : "20vh")};
     max-width: 22vw;
+
+    transform: translateY(
+      ${({ isSignInSelected }) => (isSignInSelected ? "0" : "-1.25rem")}
+    );
+    transition: transform 0.5s ease;
   `,
 }

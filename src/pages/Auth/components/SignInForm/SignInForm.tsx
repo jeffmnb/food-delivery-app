@@ -10,6 +10,7 @@ export const SignInForm = ({ onClickSignIn }: SignInFormProps) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { isValid },
   } = useForm<SignInFormSchemaType>({
     defaultValues: { email: "" },
@@ -35,7 +36,13 @@ export const SignInForm = ({ onClickSignIn }: SignInFormProps) => {
           )}
         />
       </S.InputArea>
-      <Button disabled={!isValid} onClick={handleSubmit(onClickSignIn)}>
+      <Button
+        disabled={!isValid}
+        onClick={handleSubmit(() => {
+          reset()
+          onClickSignIn()
+        })}
+      >
         Acessar painel
       </Button>
     </S.Container>

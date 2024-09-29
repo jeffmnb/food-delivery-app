@@ -11,6 +11,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
     handleSubmit,
     control,
     formState: { isValid },
+    reset,
   } = useForm<SignUpFormSchemaType>({
     resolver: zodResolver(signUpFormSchema),
   })
@@ -68,7 +69,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
           name="phone"
           render={({ field }) => (
             <Input
-              type="number"
+              maxLength={11}
               label="Seu celular"
               value={field.value || ""}
               onChange={({ target }) =>
@@ -78,7 +79,13 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
           )}
         />
       </S.InputArea>
-      <Button disabled={!isValid} onClick={handleSubmit(onClickSignUp)}>
+      <Button
+        disabled={!isValid}
+        onClick={handleSubmit(() => {
+          reset()
+          onClickSignUp()
+        })}
+      >
         Finalizar cadastro
       </Button>
     </S.Container>
