@@ -1,4 +1,5 @@
 import { styled } from "styled-components"
+import { DynamicText } from "../../../../global/components/DynamicText"
 
 export const S = {
   Container: styled.div`
@@ -18,5 +19,9 @@ export const S = {
   `,
   InputArea: styled.div`
     text-align: start;
+  `,
+  AgreementText: styled(DynamicText)`
+    line-height: 140%;
+    font-size: 0.875rem;
   `,
 }
