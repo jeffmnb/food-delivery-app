@@ -90,7 +90,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
       </Button>
       <S.AgreementText>
         {
-          "Ao continuar, você estará concordando com nossos {w=500,td=underline}termos de serviço{/w,td} e {w=500,td=underline}políticas de privacidade.{/w,td}"
+          "Ao continuar, você estará concordando com nossos {w=500,td=underline,cur=pointer}termos de serviço{w,td,cur} e {w=500,td=underline,cur=pointer}políticas de privacidade.{w,td,cur}"
         }
       </S.AgreementText>
     </S.Container>
