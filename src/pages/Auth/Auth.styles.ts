@@ -22,7 +22,7 @@ export const S = {
     padding: 2rem;
     gap: 1rem;
   `,
-  IconPizza: styled(Pizza).attrs({ size: "1.375rem" })`
+  PizzaIcon: styled(Pizza).attrs({ size: "1.375rem" })`
     color: ${({ theme }) => theme.colors.white};
   `,
   AnimationHeaderTitle: styled.p`

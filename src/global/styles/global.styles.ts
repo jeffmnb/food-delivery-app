@@ -26,4 +26,8 @@ export const GlobalStyle = createGlobalStyle`
         border-radius: 5px;
         font: 400 1rem ${({ theme }) => theme.fonts.roboto};
     }
+
+    a{
+        text-decoration: none; 
+    }
 `

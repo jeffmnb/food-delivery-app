@@ -19,7 +19,7 @@ export const AuthPage = () => {
     <S.Container>
       <S.AnimationArea>
         <S.AnimationHeader>
-          <S.IconPizza />
+          <S.PizzaIcon />
           <S.AnimationHeaderTitle>delivery.app</S.AnimationHeaderTitle>
         </S.AnimationHeader>
         <Lottie animationData={DeliveryLottie} />

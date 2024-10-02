@@ -1,2 +1,2 @@
 - colocar as fontes corretas
-- configurar theme dark/light
+- configurar theme dark/light 
