@@ -80,6 +80,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
         />
       </S.InputArea>
       <Button
+        variant="primary"
         disabled={!isValid}
         onClick={handleSubmit(() => {
           reset()

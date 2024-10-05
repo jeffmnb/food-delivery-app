@@ -37,6 +37,7 @@ export const SignInForm = ({ onClickSignIn }: SignInFormProps) => {
         />
       </S.InputArea>
       <Button
+        variant="primary"
         disabled={!isValid}
         onClick={handleSubmit(() => {
           reset()

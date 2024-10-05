@@ -1,16 +1,18 @@
 import { styled } from "styled-components"
 import { Building2, ChevronDown, DoorOpen } from "lucide-react"
+import { DropDownProps } from "./DropDown.types"
 
 export const S = {
   Container: styled.div`
     position: relative;
     display: inline-block;
   `,
-  DropdownButton: styled.button`
+  DropdownButton: styled.button<Pick<DropDownProps, "height">>`
+    height: ${({ height }) => (height ? `${height}px` : "auto")};
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     background-color: ${({ theme }) => theme.colors.black};
     color: ${({ theme }) => theme.colors.white};
     padding: 0.625rem 0.9375rem;
@@ -18,7 +20,7 @@ export const S = {
     cursor: pointer;
   `,
   DropdownTitle: styled.p`
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   `,
   ChevronDown: styled(ChevronDown).attrs({ size: "1.2rem" })``,
   ListItems: styled.ul`
@@ -31,7 +33,7 @@ export const S = {
     z-index: 1;
     margin-top: 0.3125rem;
   `,
-  Item: styled.li`
+  Item: styled.li<Pick<DropDownProps, "type">>`
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -39,6 +41,7 @@ export const S = {
 
     font-size: 0.85rem;
     color: ${({ theme }) => theme.colors.white};
+    transition: background-color 0.3s;
 
     &:hover {
       background-color: ${({ theme }) => theme.colors.gray_600};
@@ -46,7 +49,8 @@ export const S = {
     }
 
     &:last-child {
-      color: ${({ theme }) => theme.colors.red_500};
+      color: ${({ theme, type }) =>
+        type === "header" ? theme.colors.red_500 : theme.colors.white};
     }
   `,
   Building: styled(Building2).attrs({ size: "1.1rem" })``,

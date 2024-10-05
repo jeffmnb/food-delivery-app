@@ -13,7 +13,8 @@ const BaseIcon = ({ iconName, ...props }: HeaderProps) => {
 export const S = {
   Container: styled.header`
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: ${({ theme }) => theme.colors.black};
     display: flex;
     align-items: center;
     justify-content: space-between;
