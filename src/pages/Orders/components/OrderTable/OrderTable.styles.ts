@@ -11,6 +11,7 @@ const getStatusPointerColor = ({ status }: StatusOrderType) => {
 
 export const S = {
   Table: styled.table`
+    border-collapse: collapse;
     width: 100%;
     color: ${({ theme }) => theme.colors.gray_400};
     border: 1px solid ${({ theme }) => theme.colors.gray_600};

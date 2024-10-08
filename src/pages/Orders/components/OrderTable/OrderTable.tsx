@@ -1,6 +1,7 @@
 import { S } from "./OrderTable.styles"
+import { OrderTableProps } from "./OrderTable.types"
 
-export const OrderTable = () => {
+export const OrderTable = ({ onOpenDetails }: OrderTableProps) => {
   return (
     <S.Table>
       <S.Thead>
@@ -18,7 +19,7 @@ export const OrderTable = () => {
       <S.Tbody>
         <S.Tr>
           <S.Td>
-            <S.ButtonSearch>
+            <S.ButtonSearch onClick={onOpenDetails}>
               <S.SearchIcon />
             </S.ButtonSearch>
           </S.Td>
