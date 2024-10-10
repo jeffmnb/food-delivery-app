@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+import { defaultTheme } from "./theme"
 
 const devices = {
   mobile: "@media screen and (max-width: 770px)",
@@ -21,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body, input, textarea, button {
+        background-color: ${defaultTheme.colors.black};
         border: 0;
         box-shadow: none;
         border-radius: 5px;
