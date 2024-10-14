@@ -4,6 +4,7 @@ import { ViewerResponse } from "./viewer.types"
 
 export const useViewerService = () => {
   const getViewer = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 3000))
     return await client.get<ViewerResponse>("/me").catch((err) => {
       console.error("@services/viewer.service.ts/getViewer", err)
       throw err
@@ -14,5 +15,6 @@ export const useViewerService = () => {
     queryFn: getViewer,
     queryKey: ["getViewer"],
   })
+
   return { viewerResponse: viewerData?.data }
 }

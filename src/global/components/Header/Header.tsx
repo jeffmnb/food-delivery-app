@@ -6,11 +6,13 @@ import { Dropdown } from "../DropDown"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useViewerService } from "../../../services/viewerService/viewer.service"
 import { useManagedRestaurantService } from "../../../services/managedRestaurantService/managedRestaurant.service"
+import { DropDownSkeleton } from "../Skeletons/DropDownSkeleton/DropDownSkeleton"
 
 export const Header = () => {
   const navigate = useNavigate()
   const { viewerResponse } = useViewerService()
-  const { managedRestaurantResponse } = useManagedRestaurantService()
+  const { managedRestaurantResponse, isLoadingManagedRestaurant } =
+    useManagedRestaurantService()
   const { pathname } = useLocation()
   const [pathSelected, setPathSelected] = useState<PathProps | null>(null)
   const [themeSelected, setThemeSelected] = useState<"dark" | "light">("light")
@@ -66,14 +68,19 @@ export const Header = () => {
             />
           </Render.If>
         </S.ThemeArea>
-        <Dropdown
-          title={managedRestaurantResponse?.name!}
-          ownerName={viewerResponse?.name}
-          ownerEmail={viewerResponse?.email}
-          type="header"
-          onSelectOwner={() => null}
-          onSelectLeave={handleLeaveAccount}
-        />
+        <Render.If isTrue={isLoadingManagedRestaurant}>
+          <DropDownSkeleton />
+        </Render.If>
+        <Render.If isTrue={!isLoadingManagedRestaurant}>
+          <Dropdown
+            title={managedRestaurantResponse?.name!}
+            ownerName={viewerResponse?.name}
+            ownerEmail={viewerResponse?.email}
+            type="header"
+            onSelectOwner={() => null}
+            onSelectLeave={handleLeaveAccount}
+          />
+        </Render.If>
       </S.MenuArea>
     </S.Container>
   )

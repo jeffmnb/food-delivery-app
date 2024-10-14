@@ -4,6 +4,7 @@ import { ManagedRestaurantResponse } from "./managedRestaurant.types"
 
 export const useManagedRestaurantService = () => {
   const getManagedRestaurant = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 3000))
     return await client
       .get<ManagedRestaurantResponse>("/managed-restaurant")
       .catch((err) => {
@@ -14,10 +15,13 @@ export const useManagedRestaurantService = () => {
         throw err
       })
   }
-  const { data: managedRestaurantData } = useQuery({
+  const { data: managedRestaurantData, isLoading } = useQuery({
     queryFn: getManagedRestaurant,
     queryKey: ["getManagedRestaurant"],
   })
 
-  return { managedRestaurantResponse: managedRestaurantData?.data }
+  return {
+    managedRestaurantResponse: managedRestaurantData?.data,
+    isLoadingManagedRestaurant: isLoading,
+  }
 }
