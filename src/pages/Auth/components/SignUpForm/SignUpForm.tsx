@@ -1,6 +1,6 @@
 import { Controller, useForm } from "react-hook-form"
 import { S } from "./SignUpForm.styles"
-import { SignUpFormProps, SignUpFormSchemaType } from "./SignUpForm.types"
+import { SignUpFormProps, SignUpFormSchema } from "./SignUpForm.types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signUpFormSchema } from "./SignUpForm.utils"
 import { Button } from "../../../../global/components/Button/Button"
@@ -12,7 +12,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
     control,
     formState: { isValid },
     reset,
-  } = useForm<SignUpFormSchemaType>({
+  } = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
   })
 
@@ -23,7 +23,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
       <S.InputArea>
         <Controller
           control={control}
-          name="businessName"
+          name="restaurantName"
           render={({ field }) => (
             <Input
               label="Nome do estabelecimento"
@@ -37,7 +37,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
 
         <Controller
           control={control}
-          name="ownerBusinnessName"
+          name="managerName"
           render={({ field }) => (
             <Input
               label="Seu nome"
@@ -73,7 +73,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
               label="Seu celular"
               value={field.value || ""}
               onChange={({ target }) =>
-                field.onChange(parseInt((target as HTMLInputElement).value))
+                field.onChange((target as HTMLInputElement).value)
               }
             />
           )}
@@ -82,9 +82,9 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
       <Button
         variant="primary"
         disabled={!isValid}
-        onClick={handleSubmit(() => {
+        onClick={handleSubmit((fields) => {
           reset()
-          onClickSignUp()
+          onClickSignUp(fields)
         })}
       >
         Finalizar cadastro
