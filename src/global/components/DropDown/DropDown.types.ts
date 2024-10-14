@@ -1,5 +1,7 @@
 export type DropDownProps = {
   title: string
+  ownerName?: string
+  ownerEmail?: string
   type?: "header" | "filter"
   height?: number | string
   onSelectLeave?: () => void

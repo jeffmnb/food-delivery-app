@@ -2,7 +2,7 @@ import * as zod from "zod"
 import { signUpFormSchema } from "./SignUpForm.utils"
 
 export type SignUpFormProps = {
-  onClickSignUp: () => void
+  onClickSignUp: (fields: SignUpFormSchema) => void
 }
 
-export type SignUpFormSchemaType = zod.infer<typeof signUpFormSchema>
+export type SignUpFormSchema = zod.infer<typeof signUpFormSchema>

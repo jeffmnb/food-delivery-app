@@ -1,17 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import { showToast } from "../../global/components/Toast"
 import { useState } from "react"
-import { useMutation } from "@tanstack/react-query"
-import { signIn } from "../../services/authService/auth.service"
+import { SignUpFormSchema } from "./components/SignUpForm/SignUpForm.types"
+import { useAuthService } from "../../services/authService/auth.service"
 
 export const useAuthPage = () => {
   const navigate = useNavigate()
+  const { authenticate, register } = useAuthService()
 
   const [authType, setAuthType] = useState<"signIn" | "signUp">("signIn")
 
   const isSignInSelected = authType === "signIn"
-
-  const { mutateAsync: authenticate } = useMutation({ mutationFn: signIn })
 
   const handleSelectAuthType = () =>
     authType === "signIn" ? setAuthType("signUp") : setAuthType("signIn")
@@ -34,13 +33,22 @@ export const useAuthPage = () => {
       })
   }
 
-  const handleSubmitSignUp = () => {
-    showToast({
-      message: "Cadastro realizado com sucesso!",
-      description: "Bem-vindo(a)",
-      type: "success",
-      onAutoClose: () => navigate("/"),
-    })
+  const handleSubmitSignUp = async (fields: SignUpFormSchema) => {
+    return await register(fields)
+      .then(() => {
+        showToast({
+          message: "Cadastro realizado com sucesso!",
+          description: "Bem-vindo(a)",
+          type: "success",
+          onAutoClose: () => navigate("/"),
+        })
+      })
+      .catch(() => {
+        showToast({
+          message: "Oops! revise seus dados.",
+          type: "error",
+        })
+      })
   }
 
   return {

@@ -5,6 +5,8 @@ import { Render } from "../Render/Render"
 
 export const Dropdown = ({
   title,
+  ownerName,
+  ownerEmail,
   type,
   height,
   onSelectCanceled,
@@ -45,6 +47,10 @@ export const Dropdown = ({
         <>
           <Render.If isTrue={type === "header"}>
             <S.ListItems onClick={() => setIsOpen(!isOpen)}>
+              <S.OwnerArea>
+                <S.OwnerItem>{ownerName}</S.OwnerItem>
+                <S.OwnerItem>{ownerEmail}</S.OwnerItem>
+              </S.OwnerArea>
               <S.Item onClick={onSelectOwner}>
                 <S.Building />
                 Perfil da loja

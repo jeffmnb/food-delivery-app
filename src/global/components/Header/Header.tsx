@@ -4,9 +4,13 @@ import { PathProps } from "./Header.types"
 import { Render } from "../Render/Render"
 import { Dropdown } from "../DropDown"
 import { useNavigate, useLocation } from "react-router-dom"
+import { useViewerService } from "../../../services/viewerService/viewer.service"
+import { useManagedRestaurantService } from "../../../services/managedRestaurantService/managedRestaurant.service"
 
 export const Header = () => {
   const navigate = useNavigate()
+  const { viewerResponse } = useViewerService()
+  const { managedRestaurantResponse } = useManagedRestaurantService()
   const { pathname } = useLocation()
   const [pathSelected, setPathSelected] = useState<PathProps | null>(null)
   const [themeSelected, setThemeSelected] = useState<"dark" | "light">("light")
@@ -63,7 +67,9 @@ export const Header = () => {
           </Render.If>
         </S.ThemeArea>
         <Dropdown
-          title="Nome o lugar"
+          title={managedRestaurantResponse?.name!}
+          ownerName={viewerResponse?.name}
+          ownerEmail={viewerResponse?.email}
           type="header"
           onSelectOwner={() => null}
           onSelectLeave={handleLeaveAccount}

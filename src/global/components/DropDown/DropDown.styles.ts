@@ -33,6 +33,26 @@ export const S = {
     z-index: 1;
     margin-top: 0.3125rem;
   `,
+  OwnerArea: styled.li`
+    display: flex;
+    gap: 0.3125rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.white};
+
+    > p {
+      &:nth-child(2) {
+        font-weight: normal;
+        font-size: 0.7813rem;
+        color: ${({ theme }) => theme.colors.gray_400};
+      }
+    }
+  `,
+  OwnerItem: styled.p``,
   Item: styled.li<Pick<DropDownProps, "type">>`
     display: flex;
     justify-content: flex-start;
@@ -43,7 +63,7 @@ export const S = {
     color: ${({ theme }) => theme.colors.white};
     transition: background-color 0.3s;
 
-    &:hover {
+    &:not(:first-child):hover {
       background-color: ${({ theme }) => theme.colors.gray_600};
       cursor: pointer;
     }
