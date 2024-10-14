@@ -39,9 +39,9 @@ export const SignInForm = ({ onClickSignIn }: SignInFormProps) => {
       <Button
         variant="primary"
         disabled={!isValid}
-        onClick={handleSubmit(() => {
+        onClick={handleSubmit(({ email }) => {
           reset()
-          onClickSignIn()
+          onClickSignIn(email)
         })}
       >
         Acessar painel

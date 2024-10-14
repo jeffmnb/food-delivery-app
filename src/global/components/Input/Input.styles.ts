@@ -7,6 +7,7 @@ export const S = {
     margin: 1rem 0 0.625rem 0;
   `,
   Input: styled.input`
+    background-color: ${({ theme }) => theme.colors.white};
     width: 100%;
     padding: 0.625rem;
   `,
