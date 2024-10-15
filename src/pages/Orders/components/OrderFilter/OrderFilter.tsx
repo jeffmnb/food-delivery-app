@@ -34,7 +34,7 @@ export const OrderFilter = () => {
         name="orderId"
         render={({ field }) => (
           <S.FilterInput
-            value={field.value || ""}
+            value={field.value}
             placeholder="ID do pedido"
             onChange={({ target }) => field.onChange(target.value)}
           />
@@ -46,7 +46,7 @@ export const OrderFilter = () => {
         render={({ field }) => (
           <S.FilterInput
             placeholder="Nome do cliente"
-            value={field.value || ""}
+            value={field.value}
             onChange={({ target }) => field.onChange(target.value)}
           />
         )}

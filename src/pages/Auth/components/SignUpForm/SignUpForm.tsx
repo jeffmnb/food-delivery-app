@@ -14,6 +14,12 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
     reset,
   } = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
+    defaultValues: {
+      email: "",
+      managerName: "",
+      phone: "",
+      restaurantName: "",
+    },
   })
 
   return (
@@ -27,7 +33,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
           render={({ field }) => (
             <Input
               label="Nome do estabelecimento"
-              value={field.value || ""}
+              value={field.value}
               onChange={({ target }) =>
                 field.onChange((target as HTMLInputElement).value)
               }
@@ -41,7 +47,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
           render={({ field }) => (
             <Input
               label="Seu nome"
-              value={field.value || ""}
+              value={field.value}
               onChange={({ target }) =>
                 field.onChange((target as HTMLInputElement).value)
               }
@@ -56,7 +62,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
             <Input
               type="email"
               label="Seu e-mail"
-              value={field.value || ""}
+              value={field.value}
               onChange={({ target }) =>
                 field.onChange((target as HTMLInputElement).value)
               }
@@ -71,7 +77,7 @@ export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
             <Input
               maxLength={11}
               label="Seu celular"
-              value={field.value || ""}
+              value={field.value}
               onChange={({ target }) =>
                 field.onChange((target as HTMLInputElement).value)
               }

@@ -17,12 +17,17 @@ export const useAuthPage = () => {
 
   const handleSubmitSignIn = async (email: string) => {
     return await authenticate({ email: email })
-      .then(() => {
+      .then(({ data }) => {
         showToast({
           message: "Autenticação realizada com sucesso!",
           description: "Bem-vindo(a)",
           type: "success",
-          onAutoClose: () => navigate("/"),
+          action: {
+            label: "Entrar",
+            onClick() {
+              window.location.href = data
+            },
+          },
         })
       })
       .catch(() => {

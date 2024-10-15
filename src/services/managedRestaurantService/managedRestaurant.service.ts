@@ -4,7 +4,7 @@ import { ManagedRestaurantResponse } from "./managedRestaurant.types"
 
 export const useManagedRestaurantService = () => {
   const getManagedRestaurant = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     return await client
       .get<ManagedRestaurantResponse>("/managed-restaurant")
       .catch((err) => {

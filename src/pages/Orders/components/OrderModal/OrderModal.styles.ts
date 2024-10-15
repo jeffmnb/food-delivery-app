@@ -69,6 +69,7 @@ export const S = {
     cursor: pointer;
   `,
   TableDetails: styled.table`
+    width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
   `,
@@ -87,12 +88,14 @@ export const S = {
   TdDetails: styled.td`
     text-align: right;
     padding: 1rem 0.8rem;
+    color: ${({ theme }) => theme.colors.white};
     &:nth-child(1) {
       text-align: left;
       color: ${({ theme }) => theme.colors.gray_400};
     }
   `,
   TableProduct: styled.table`
+    width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
   `,

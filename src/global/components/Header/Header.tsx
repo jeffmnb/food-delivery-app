@@ -7,10 +7,14 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useViewerService } from "../../../services/viewerService/viewer.service"
 import { useManagedRestaurantService } from "../../../services/managedRestaurantService/managedRestaurant.service"
 import { DropDownSkeleton } from "../Skeletons/DropDownSkeleton/DropDownSkeleton"
+import { openEditProfileModal } from "../../../pages/Dashboard/components/EditProfileModal"
+import { useAuthService } from "../../../services/authService/auth.service"
+import { showToast } from "../Toast"
 
 export const Header = () => {
   const navigate = useNavigate()
   const { viewerResponse } = useViewerService()
+  const { signOut } = useAuthService()
   const { managedRestaurantResponse, isLoadingManagedRestaurant } =
     useManagedRestaurantService()
   const { pathname } = useLocation()
@@ -27,7 +31,13 @@ export const Header = () => {
     if (pathname === "/orders") return setPathSelected("orders")
   }
 
-  const handleLeaveAccount = () => navigate("/auth")
+  const handleLeaveAccount = async () => {
+    return await signOut()
+      .then(() => navigate("/auth", { replace: true }))
+      .catch(() => {
+        showToast({ type: "error", message: "Tente novamente" })
+      })
+  }
 
   useEffect(() => {
     getLocationPath()
@@ -77,7 +87,7 @@ export const Header = () => {
             ownerName={viewerResponse?.name}
             ownerEmail={viewerResponse?.email}
             type="header"
-            onSelectOwner={() => null}
+            onSelectOwner={openEditProfileModal}
             onSelectLeave={handleLeaveAccount}
           />
         </Render.If>

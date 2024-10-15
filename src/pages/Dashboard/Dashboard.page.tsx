@@ -1,6 +1,8 @@
+import { Toast } from "../../global/components/Toast"
 import { CardDetails } from "./components/CardDetails"
 import { PopularProductsChart } from "./components/Charts/PopularProductsChart"
 import { RevenueChart } from "./components/Charts/RevenueChart/RevenueChart"
+import { EditProfileModal } from "./components/EditProfileModal"
 import { S } from "./Dashboard.styles"
 
 export const DashboardPage = () => {
@@ -32,6 +34,8 @@ export const DashboardPage = () => {
           <PopularProductsChart />
         </S.PopularProductsChartWrapper>
       </S.Charts>
+      <EditProfileModal />
+      <Toast richColors position="bottom-right" />
     </S.Container>
   )
 }
