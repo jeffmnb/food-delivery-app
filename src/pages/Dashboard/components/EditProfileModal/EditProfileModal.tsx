@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { S } from "./EditProfileModal.styles"
 import { useUpdateProfile } from "../../../../services/updateProfile/updateProfile.service"
 import { showToast } from "../../../../global/components/Toast"
+import { useFoodDeliveryStore } from "../../../../global/store"
 
 const editProfileModalRef = createRef<EditProfileModalRef>()
 export const openEditProfileModal = () => editProfileModalRef.current?.open()
@@ -30,6 +31,7 @@ export const EditProfileModal = () => {
   })
 
   const { updateProfile } = useUpdateProfile()
+  const { setManagedRestaurant, managedRestaurant } = useFoodDeliveryStore()
 
   const handleSaveProfile = async ({
     description,
@@ -39,6 +41,7 @@ export const EditProfileModal = () => {
       .then(() => {
         reset()
         closeEditProfileModal()
+        setManagedRestaurant({ ...managedRestaurant, name, description })
         showToast({
           message: "Dados atualizados com sucesso.",
           type: "success",

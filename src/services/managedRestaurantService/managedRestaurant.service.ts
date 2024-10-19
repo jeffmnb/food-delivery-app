@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
 import { client } from "../server"
-import { ManagedRestaurantResponse } from "./managedRestaurant.types"
+import { ManagedRestaurant } from "./managedRestaurant.types"
 
 export const useManagedRestaurantService = () => {
   const getManagedRestaurant = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000))
     return await client
-      .get<ManagedRestaurantResponse>("/managed-restaurant")
+      .get<ManagedRestaurant>("/managed-restaurant")
       .catch((err) => {
         console.error(
           "@services/managedRestaurant.service.ts/getManagedRestaurant",
@@ -15,13 +15,13 @@ export const useManagedRestaurantService = () => {
         throw err
       })
   }
-  const { data: managedRestaurantData, isLoading } = useQuery({
+  const { data: managedRestaurant, isLoading } = useQuery({
     queryFn: getManagedRestaurant,
     queryKey: ["getManagedRestaurant"],
   })
 
   return {
-    managedRestaurantResponse: managedRestaurantData?.data,
+    managedRestaurantResponse: managedRestaurant?.data,
     isLoadingManagedRestaurant: isLoading,
   }
 }

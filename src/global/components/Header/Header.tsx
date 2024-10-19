@@ -10,11 +10,19 @@ import { DropDownSkeleton } from "../Skeletons/DropDownSkeleton/DropDownSkeleton
 import { openEditProfileModal } from "../../../pages/Dashboard/components/EditProfileModal"
 import { useAuthService } from "../../../services/authService/auth.service"
 import { showToast } from "../Toast"
+import { useFoodDeliveryStore } from "../../store"
 
 export const Header = () => {
   const navigate = useNavigate()
   const { viewerResponse } = useViewerService()
   const { signOut } = useAuthService()
+  const {
+    setViewer,
+    setManagedRestaurant,
+    resetStore,
+    viewer,
+    managedRestaurant,
+  } = useFoodDeliveryStore()
   const { managedRestaurantResponse, isLoadingManagedRestaurant } =
     useManagedRestaurantService()
   const { pathname } = useLocation()
@@ -33,11 +41,24 @@ export const Header = () => {
 
   const handleLeaveAccount = async () => {
     return await signOut()
-      .then(() => navigate("/auth", { replace: true }))
+      .then(() => {
+        resetStore()
+        navigate("/auth", { replace: true })
+      })
       .catch(() => {
         showToast({ type: "error", message: "Tente novamente" })
       })
   }
+
+  const setViewerAndRestauratOnStore = () => {
+    if (viewerResponse) setViewer(viewerResponse)
+    if (managedRestaurantResponse)
+      setManagedRestaurant(managedRestaurantResponse)
+  }
+
+  useEffect(() => {
+    setViewerAndRestauratOnStore()
+  }, [viewerResponse])
 
   useEffect(() => {
     getLocationPath()
@@ -83,9 +104,9 @@ export const Header = () => {
         </Render.If>
         <Render.If isTrue={!isLoadingManagedRestaurant}>
           <Dropdown
-            title={managedRestaurantResponse?.name!}
-            ownerName={viewerResponse?.name}
-            ownerEmail={viewerResponse?.email}
+            title={managedRestaurant?.name}
+            ownerName={viewer?.name}
+            ownerEmail={viewer?.email}
             type="header"
             onSelectOwner={openEditProfileModal}
             onSelectLeave={handleLeaveAccount}

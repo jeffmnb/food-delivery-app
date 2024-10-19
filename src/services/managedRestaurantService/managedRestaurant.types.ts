@@ -1,4 +1,4 @@
-export type ManagedRestaurantResponse = {
+export type ManagedRestaurant = {
   id: string
   name: string
   createdAt: Date | null

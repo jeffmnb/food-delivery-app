@@ -22,11 +22,9 @@ export const useAuthPage = () => {
           message: "Autenticação realizada com sucesso!",
           description: "Bem-vindo(a)",
           type: "success",
-          action: {
-            label: "Entrar",
-            onClick() {
-              window.location.href = data
-            },
+          duration: 1500,
+          onAutoClose() {
+            window.location.href = data
           },
         })
       })

@@ -9,15 +9,15 @@ const toastRef = createRef<ToastRef>()
 export const showToast = (props: ToastProps) => toastRef.current?.open(props)
 
 export const Toast = ({
-  duration = 2500,
   richColors = true,
   position = "bottom-right",
-}: Pick<ToasterProps, "duration" | "position" | "richColors">) => {
+}: Pick<ToasterProps, "position" | "richColors">) => {
   useImperativeHandle(toastRef, () => ({
-    open: ({ message, description, action, type, onAutoClose }) =>
+    open: ({ message, description, duration, action, type, onAutoClose }) =>
       toast[type](message, {
         action: action,
         description: description,
+        duration: duration,
         onAutoClose: () =>
           setTimeout(() => {
             onAutoClose?.()
@@ -30,7 +30,6 @@ export const Toast = ({
     <Toaster
       closeButton
       theme="system"
-      duration={duration}
       position={position}
       richColors={richColors}
     />

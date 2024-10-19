@@ -1,4 +1,4 @@
-export type ViewerResponse = {
+export type Viewer = {
   email: string
   id: string
   name: string
