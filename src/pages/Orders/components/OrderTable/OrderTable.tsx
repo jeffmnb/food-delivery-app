@@ -1,7 +1,10 @@
+import { Render } from "../../../../global/components/Render/Render"
 import { S } from "./OrderTable.styles"
 import { OrderTableProps } from "./OrderTable.types"
 
-export const OrderTable = ({ onOpenDetails }: OrderTableProps) => {
+export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
+  const hasOrders = !!orders.length
+
   return (
     <S.Table>
       <S.Thead>
@@ -17,87 +20,43 @@ export const OrderTable = ({ onOpenDetails }: OrderTableProps) => {
         </S.Tr>
       </S.Thead>
       <S.Tbody>
-        <S.Tr>
-          <S.Td>
-            <S.ButtonSearch onClick={onOpenDetails}>
-              <S.SearchIcon />
-            </S.ButtonSearch>
-          </S.Td>
-          <S.Td>821e78f7asdhdf128h</S.Td>
-          <S.Td>há 15 minutos</S.Td>
-          <S.Td>
-            <S.StatusPointer status="progress" />
-            Em andamento
-          </S.Td>
-          <S.Td>Jeferson Borda </S.Td>
-          <S.Td>R$ 149,90</S.Td>
-          <S.Td>
-            <S.ButtonApprove>
-              <S.ArrowRight />
-              Aprovar
-            </S.ButtonApprove>
-          </S.Td>
-          <S.Td>
-            <S.ButtonCancel>
-              <S.X />
-              <p>Cancelar</p>
-            </S.ButtonCancel>
-          </S.Td>
-        </S.Tr>
-        <S.Tr>
-          <S.Td>
-            <S.ButtonSearch>
-              <S.SearchIcon />
-            </S.ButtonSearch>
-          </S.Td>
-          <S.Td>821e78f7asdhdf128h</S.Td>
-          <S.Td>há 15 minutos</S.Td>
-          <S.Td>
-            <S.StatusPointer status="progress" />
-            Em andamento
-          </S.Td>
-          <S.Td>Jeferson Borda </S.Td>
-          <S.Td>R$ 149,90</S.Td>
-          <S.Td>
-            <S.ButtonApprove>
-              <S.ArrowRight />
-              Aprovar
-            </S.ButtonApprove>
-          </S.Td>
-          <S.Td>
-            <S.ButtonCancel>
-              <S.X />
-              <p>Cancelar</p>
-            </S.ButtonCancel>
-          </S.Td>
-        </S.Tr>
-        <S.Tr>
-          <S.Td>
-            <S.ButtonSearch>
-              <S.SearchIcon />
-            </S.ButtonSearch>
-          </S.Td>
-          <S.Td>821e78f7asdhdf128h</S.Td>
-          <S.Td>há 15 minutos</S.Td>
-          <S.Td>
-            <S.StatusPointer status="progress" />
-            Em andamento
-          </S.Td>
-          <S.Td>Jeferson Borda </S.Td>
-          <S.Td>R$ 149,90</S.Td>
-          <S.Td>
-            <S.ButtonApprove>
-              <S.ArrowRight />
-              Aprovar
-            </S.ButtonApprove>
-          </S.Td>
-          <S.Td>
-            <S.ButtonCancel>
-              <S.X />
-              Cancelar
-            </S.ButtonCancel>
-          </S.Td>
-        </S.Tr>
+        <Render.If isTrue={hasOrders}>
+          {orders &&
+            orders.map(
+              ({ createdAt, customerName, orderId, status, total }) => (
+                <S.Tr key={orderId}>
+                  <S.Td>
+                    <S.ButtonSearch onClick={onOpenDetails}>
+                      <S.SearchIcon />
+                    </S.ButtonSearch>
+                  </S.Td>
+                  <S.Td>{}</S.Td>
+                  <S.Td>há {createdAt.toString()}</S.Td>
+                  <S.Td>
+                    <S.StatusPointer status="progress" />
+                    {status}
+                  </S.Td>
+                  <S.Td>{customerName} </S.Td>
+                  <S.Td>R$ {total}</S.Td>
+                  <S.Td>
+                    <S.ButtonApprove>
+                      <S.ArrowRight />
+                      Aprovar
+                    </S.ButtonApprove>
+                  </S.Td>
+                  <S.Td>
+                    <S.ButtonCancel>
+                      <S.X />
+                      <p>Cancelar</p>
+                    </S.ButtonCancel>
+                  </S.Td>
+                </S.Tr>
+              ),
+            )}
+        </Render.If>
+        <Render.If isTrue={!hasOrders}>
+          <p style={{ color: "white" }}>NENHUM PEDIDO</p>
+        </Render.If>
       </S.Tbody>
     </S.Table>
   )

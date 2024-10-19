@@ -14,7 +14,7 @@ import { useFoodDeliveryStore } from "../../store"
 
 export const Header = () => {
   const navigate = useNavigate()
-  const { viewerResponse } = useViewerService()
+  const { getViewer } = useViewerService()
   const { signOut } = useAuthService()
   const {
     setViewer,
@@ -23,11 +23,11 @@ export const Header = () => {
     viewer,
     managedRestaurant,
   } = useFoodDeliveryStore()
-  const { managedRestaurantResponse, isLoadingManagedRestaurant } =
-    useManagedRestaurantService()
+  const { getManagedRestaurant } = useManagedRestaurantService()
   const { pathname } = useLocation()
   const [pathSelected, setPathSelected] = useState<PathProps | null>(null)
   const [themeSelected, setThemeSelected] = useState<"dark" | "light">("light")
+  const [isFething, setIsFething] = useState<boolean>()
 
   const handleSelectPath = (path: PathProps) => {
     if (path === "home") navigate("/")
@@ -50,15 +50,19 @@ export const Header = () => {
       })
   }
 
-  const setViewerAndRestauratOnStore = () => {
-    if (viewerResponse) setViewer(viewerResponse)
-    if (managedRestaurantResponse)
-      setManagedRestaurant(managedRestaurantResponse)
+  const getViewerAndRestauratOnStore = async () => {
+    setIsFething(true)
+    await getViewer().then((viewerResponse) => setViewer(viewerResponse?.data))
+    await getManagedRestaurant()
+      .then((managedRestaurantResponse) =>
+        setManagedRestaurant(managedRestaurantResponse?.data),
+      )
+      .finally(() => setIsFething(false))
   }
 
   useEffect(() => {
-    setViewerAndRestauratOnStore()
-  }, [viewerResponse])
+    getViewerAndRestauratOnStore()
+  }, [])
 
   useEffect(() => {
     getLocationPath()
@@ -99,10 +103,10 @@ export const Header = () => {
             />
           </Render.If>
         </S.ThemeArea>
-        <Render.If isTrue={isLoadingManagedRestaurant}>
+        <Render.If isTrue={isFething!}>
           <DropDownSkeleton />
         </Render.If>
-        <Render.If isTrue={!isLoadingManagedRestaurant}>
+        <Render.If isTrue={!isFething}>
           <Dropdown
             title={managedRestaurant?.name}
             ownerName={viewer?.name}
