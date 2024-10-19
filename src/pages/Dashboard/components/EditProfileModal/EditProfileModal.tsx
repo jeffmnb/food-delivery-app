@@ -8,7 +8,7 @@ import { Controller, useForm } from "react-hook-form"
 import { editProfileFormSchema } from "./EditProfileModal.utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { S } from "./EditProfileModal.styles"
-import { useUpdateProfile } from "../../../../services/updateProfile/updateProfile.service"
+import { useUpdateProfile } from "../../../../services/updateProfileService/updateProfile.service"
 import { showToast } from "../../../../global/components/Toast"
 import { useFoodDeliveryStore } from "../../../../global/store"
 
