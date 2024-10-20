@@ -52,7 +52,9 @@ export const Header = () => {
 
   const getViewerAndRestauratOnStore = async () => {
     setIsFething(true)
-    await getViewer().then((viewerResponse) => setViewer(viewerResponse?.data))
+    await getViewer()
+      .then((viewerResponse) => setViewer(viewerResponse?.data))
+      .catch(() => navigate("/auth"))
     await getManagedRestaurant()
       .then((managedRestaurantResponse) =>
         setManagedRestaurant(managedRestaurantResponse?.data),
