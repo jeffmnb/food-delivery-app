@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { OrdersResponse } from "../../services/orders/orders.types"
 import { useOrdersService } from "../../services/orders/orders.service"
 import { useFoodDeliveryStore } from "../../global/store"
-import { formatTotalCount } from "./utils"
+import { getRealIndexTotalCount } from "./utils"
 
 export const useOrdersPage = () => {
   const [ordersDetails, setOrdersDetails] = useState<OrdersResponse>()
@@ -21,7 +21,7 @@ export const useOrdersPage = () => {
     })
       .then(({ data }) => {
         setOrders({
-          totalCount: formatTotalCount(data?.meta?.totalCount!),
+          totalCount: getRealIndexTotalCount(data?.meta?.totalCount!),
           pageIndex: pageIndex,
         })
         setOrdersDetails({ orders: data?.orders, meta: data?.meta })

@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Render } from "../../global/components/Render/Render"
 import { CardDetailsSkeleton } from "../../global/components/Skeletons/CardDetailsSkeleton/CardDetailsSkeleton"
 import { Toast } from "../../global/components/Toast"
@@ -7,15 +6,10 @@ import { PopularProductsChart } from "./components/Charts/PopularProductsChart"
 import { RevenueChart } from "./components/Charts/RevenueChart/RevenueChart"
 import { EditProfileModal } from "./components/EditProfileModal"
 import { S } from "./Dashboard.styles"
+import { useDashboardPage } from "./Dashboard.logic"
 
 export const DashboardPage = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-
-  // TODO - remover
-  setTimeout(() => {
-    setIsLoading(false)
-  }, 3000)
-
+  const { isLoading } = useDashboardPage()
   return (
     <S.Container>
       <S.TitlePage>Dashboard</S.TitlePage>

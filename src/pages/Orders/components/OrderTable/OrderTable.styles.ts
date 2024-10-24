@@ -1,22 +1,7 @@
 import { ArrowRight, Search, X } from "lucide-react"
 import { styled } from "styled-components"
-import { defaultTheme } from "../../../../global/styles/theme"
 import { StatusOrderType } from "../../Orders.types"
-
-const getStatusPointerColor = ({ status }: StatusOrderType) => {
-  switch (status) {
-    case "delivered":
-      return defaultTheme.colors.green_200
-    case "delivering":
-      return defaultTheme.colors.blue_400
-    case "canceled":
-      return defaultTheme.colors.red_500
-    case "processing":
-      return defaultTheme.colors.yellow_400
-    case "pending":
-      return defaultTheme.colors.yellow_500
-  }
-}
+import { getStatusPointerColor } from "../../utils"
 
 export const S = {
   Table: styled.table`
@@ -69,7 +54,8 @@ export const S = {
     display: inline-block;
     width: 0.625rem;
     height: 0.625rem;
-    background-color: ${({ status }) => getStatusPointerColor({ status })};
+    background-color: ${({ status }) =>
+      getStatusPointerColor({ status })?.color};
     border-radius: 50%;
     margin-right: 0.625rem;
   `,
