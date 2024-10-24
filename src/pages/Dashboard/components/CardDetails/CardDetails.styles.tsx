@@ -35,7 +35,9 @@ export const S = {
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.gray_500};
   `,
-  Percentage: styled.span<CardDetailsPercentage>`
+  Percentage: styled.span.withConfig({
+    shouldForwardProp: (prop) => prop !== "variant",
+  })<CardDetailsPercentage>`
     color: ${({ theme, variant }) =>
       variant === "positive" ? "green" : theme.colors.red_500};
   `,

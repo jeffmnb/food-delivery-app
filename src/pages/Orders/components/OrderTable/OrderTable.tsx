@@ -1,9 +1,10 @@
 import { Render } from "../../../../global/components/Render/Render"
+import { formatDateDistanceToNow } from "../../utils"
 import { S } from "./OrderTable.styles"
 import { OrderTableProps } from "./OrderTable.types"
 
 export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
-  const hasOrders = !!orders.length
+  const hasOrders = !!orders?.length
 
   return (
     <S.Table>
@@ -21,38 +22,37 @@ export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
       </S.Thead>
       <S.Tbody>
         <Render.If isTrue={hasOrders}>
-          {orders &&
-            orders.map(
-              ({ createdAt, customerName, orderId, status, total }) => (
-                <S.Tr key={orderId}>
-                  <S.Td>
-                    <S.ButtonSearch onClick={onOpenDetails}>
-                      <S.SearchIcon />
-                    </S.ButtonSearch>
-                  </S.Td>
-                  <S.Td>{}</S.Td>
-                  <S.Td>há {createdAt.toString()}</S.Td>
-                  <S.Td>
-                    <S.StatusPointer status="progress" />
-                    {status}
-                  </S.Td>
-                  <S.Td>{customerName} </S.Td>
-                  <S.Td>R$ {total}</S.Td>
-                  <S.Td>
-                    <S.ButtonApprove>
-                      <S.ArrowRight />
-                      Aprovar
-                    </S.ButtonApprove>
-                  </S.Td>
-                  <S.Td>
-                    <S.ButtonCancel>
-                      <S.X />
-                      <p>Cancelar</p>
-                    </S.ButtonCancel>
-                  </S.Td>
-                </S.Tr>
-              ),
-            )}
+          {orders?.map(
+            ({ createdAt, customerName, orderId, status, total }) => (
+              <S.Tr key={orderId}>
+                <S.Td>
+                  <S.ButtonSearch onClick={onOpenDetails}>
+                    <S.SearchIcon />
+                  </S.ButtonSearch>
+                </S.Td>
+                <S.Td>{orderId.slice(6)}</S.Td>
+                <S.Td>{formatDateDistanceToNow(createdAt)}</S.Td>
+                <S.Td>
+                  <S.StatusPointer status={status} />
+                  {status}
+                </S.Td>
+                <S.Td>{customerName} </S.Td>
+                <S.Td>R$ {total}</S.Td>
+                <S.Td>
+                  <S.ButtonApprove>
+                    <S.ArrowRight />
+                    Aprovar
+                  </S.ButtonApprove>
+                </S.Td>
+                <S.Td>
+                  <S.ButtonCancel>
+                    <S.X />
+                    <p>Cancelar</p>
+                  </S.ButtonCancel>
+                </S.Td>
+              </S.Tr>
+            ),
+          )}
         </Render.If>
         <Render.If isTrue={!hasOrders}>
           <p style={{ color: "white" }}>NENHUM PEDIDO</p>

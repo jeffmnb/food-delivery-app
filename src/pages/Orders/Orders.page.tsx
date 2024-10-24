@@ -1,3 +1,7 @@
+import { Render } from "../../global/components/Render/Render"
+import { OrderFilterSkeleton } from "../../global/components/Skeletons/OrderFilterSkeleton/OrderFilterSkeleton"
+import { OrderTableSkeleton } from "../../global/components/Skeletons/OrderTableSkeleton/OrderTableSkeleton"
+import { EditProfileModal } from "../Dashboard/components/EditProfileModal"
 import { OrderFilter } from "./components/OrderFilter"
 import { openOrderModal, OrderModal } from "./components/OrderModal"
 import { OrderPagination } from "./components/OrderPagination"
@@ -6,23 +10,31 @@ import { useOrdersPage } from "./Orders.logic"
 import { S } from "./Orders.styles"
 
 export const OrdersPage = () => {
-  const { orders, isLoadingOrders } = useOrdersPage()
-
-  if (isLoadingOrders) return <p style={{ color: "white" }}>LAODING</p>
+  const { ordersDetails, isLoadingOrders } = useOrdersPage()
 
   return (
     <S.Container>
       <S.TitlePage>Pedidos</S.TitlePage>
 
-      <OrderFilter />
-      <OrderTable orders={orders!} onOpenDetails={openOrderModal} />
+      <Render.If isTrue={isLoadingOrders}>
+        <OrderFilterSkeleton />
+        <OrderTableSkeleton />
+      </Render.If>
 
-      <OrderPagination
-        pageIndex={0}
-        perPage={1}
-        totalCount={orders?.length || 0}
-      />
+      <Render.If isTrue={!isLoadingOrders}>
+        <OrderFilter />
+        <OrderTable
+          orders={ordersDetails?.orders!}
+          onOpenDetails={openOrderModal}
+        />
+        <OrderPagination
+          perPage={1}
+          totalOrders={ordersDetails?.orders?.length ?? 0}
+        />
+      </Render.If>
+
       <OrderModal />
+      <EditProfileModal />
     </S.Container>
   )
 }

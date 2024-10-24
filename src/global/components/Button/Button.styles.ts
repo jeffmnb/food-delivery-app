@@ -2,7 +2,9 @@ import { styled } from "styled-components"
 import { ButtonProps } from "./Button.types"
 
 export const S = {
-  Button: styled.button<Pick<ButtonProps, "variant">>`
+  Button: styled.button.withConfig({
+    shouldForwardProp: (prop) => prop !== "variant",
+  })<Pick<ButtonProps, "variant">>`
     display: flex;
     gap: 0.5rem;
     justify-content: center;

@@ -7,6 +7,7 @@ import { ManagedRestaurant } from "../../services/managedRestaurantService/manag
 const initialStoreValue = {
   viewer: {},
   managedRestaurant: {},
+  orders: { pageIndex: 0, totalCount: 0 },
 } as UseFoodDeliveryStore
 
 export const useFoodDeliveryStore = create<UseFoodDeliveryStore>()(
@@ -30,6 +31,20 @@ export const useFoodDeliveryStore = create<UseFoodDeliveryStore>()(
             false,
             "setManagedRestaurant",
           ),
+        setOrders: ({ pageIndex, totalCount }) => {
+          if (pageIndex < 0) return
+
+          set(
+            () => ({
+              orders: {
+                pageIndex: pageIndex,
+                totalCount: totalCount ?? 0,
+              },
+            }),
+            false,
+            "setOrders",
+          )
+        },
         resetStore: () =>
           set(
             () => ({

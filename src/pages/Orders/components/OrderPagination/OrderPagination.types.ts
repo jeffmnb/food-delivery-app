@@ -1,5 +1,6 @@
 export type OrderPaginationProps = {
-  pageIndex: number
-  totalCount: number
+  totalOrders: number
   perPage: number
 }
+
+export type ActionSteps = "preview" | "next" | "begin" | "end"

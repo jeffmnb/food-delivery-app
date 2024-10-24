@@ -18,7 +18,7 @@ export const useManagedRestaurantService = () => {
   const getManagedRestaurant = () => {
     return queryClient.fetchQuery({
       queryFn: getManagedRestaurantService,
-      queryKey: ["getManagedRestaurant"],
+      queryKey: ["getManagedRestaurantService"],
     })
   }
 

@@ -46,6 +46,11 @@ export const S = {
       cursor: pointer;
       background-color: ${({ theme }) => theme.colors.gray_600};
     }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
   `,
   ChevronsLeft: styled(ChevronsLeft).attrs({ size: 20 })``,
   ChevronLeft: styled(ChevronLeft).attrs({ size: 20 })``,

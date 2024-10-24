@@ -14,7 +14,7 @@ export const useOrdersService = () => {
 
   const getOrders = async (variables: OrdersRequest) => {
     return await queryClient.fetchQuery({
-      queryKey: ["QueryOrders"],
+      queryKey: ["getOrdersService"],
       queryFn: () => getOrdersService(variables),
     })
   }

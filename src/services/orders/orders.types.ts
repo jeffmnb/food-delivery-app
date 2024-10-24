@@ -12,7 +12,7 @@ export type OrdersRequest = {
 
 export type OrdersResponse = {
   orders: Orders[]
-  meta: {
+  meta?: {
     pageIndex: number
     perPage: number
     totalCount: number

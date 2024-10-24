@@ -14,7 +14,7 @@ export const useViewerService = () => {
   const getViewer = () => {
     return queryClient.fetchQuery({
       queryFn: getViewerService,
-      queryKey: ["getViewer"],
+      queryKey: ["getViewerService"],
     })
   }
 

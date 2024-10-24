@@ -4,9 +4,18 @@ import { defaultTheme } from "../../../../global/styles/theme"
 import { StatusOrderType } from "../../Orders.types"
 
 const getStatusPointerColor = ({ status }: StatusOrderType) => {
-  if (status === "delivered") return defaultTheme.colors.white
-  if (status === "canceled") return defaultTheme.colors.red_500
-  if (status === "progress") return defaultTheme.colors.yellow_500
+  switch (status) {
+    case "delivered":
+      return defaultTheme.colors.green_200
+    case "delivering":
+      return defaultTheme.colors.blue_400
+    case "canceled":
+      return defaultTheme.colors.red_500
+    case "processing":
+      return defaultTheme.colors.yellow_400
+    case "pending":
+      return defaultTheme.colors.yellow_500
+  }
 }
 
 export const S = {
@@ -54,7 +63,9 @@ export const S = {
     text-align: left;
     font-weight: 400;
   `,
-  StatusPointer: styled.span<StatusOrderType>`
+  StatusPointer: styled.span.withConfig({
+    shouldForwardProp: (prop) => prop !== "status",
+  })<StatusOrderType>`
     display: inline-block;
     width: 0.625rem;
     height: 0.625rem;

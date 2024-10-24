@@ -1,3 +1,3 @@
 export type StatusOrderType = {
-  status: "all" | "progress" | "canceled" | "delivered"
+  status: "pending" | "canceled" | "processing" | "delivering" | "delivered"
 }
