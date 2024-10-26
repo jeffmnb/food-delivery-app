@@ -1,3 +1,7 @@
 import { z } from "zod"
 import { orderFilterSchema } from "./OrderFilter.utils"
-export type OrderFilterSchema = z.infer<typeof orderFilterSchema>
+export type OrderFilterInput = z.infer<typeof orderFilterSchema>
+
+export type OrderFilterProps = {
+  onSearchSubmit: (values: OrderFilterInput) => void
+}

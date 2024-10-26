@@ -15,10 +15,10 @@ export const formatMoney = (value: number) => {
 }
 
 export const getRealIndexTotalCount = (totalCount: number) => {
-  return totalCount / 10 - 1
+  return Math.ceil(totalCount / 10 - 1)
 }
 
-export const getStatusPointerColor = ({ status }: StatusOrderType) => {
+export const getStatusDetails = ({ status }: StatusOrderType) => {
   switch (status) {
     case "delivered":
       return { color: defaultTheme.colors.green_200, title: "Entregue" }
@@ -27,7 +27,10 @@ export const getStatusPointerColor = ({ status }: StatusOrderType) => {
     case "canceled":
       return { color: defaultTheme.colors.red_500, title: "Cancelado" }
     case "processing":
-      return { color: defaultTheme.colors.yellow_400, title: "Em andamento" }
+      return {
+        color: defaultTheme.colors.yellow_400,
+        title: "Em andamento",
+      }
     case "pending":
       return { color: defaultTheme.colors.yellow_500, title: "Pendente" }
   }

@@ -8,6 +8,15 @@ export type Orders = {
 
 export type OrdersRequest = {
   pageIndex: number
+  orderId?: string
+  status?:
+    | "pending"
+    | "canceled"
+    | "processing"
+    | "delivering"
+    | "delivered"
+    | "all"
+  customerName?: string
 }
 
 export type OrdersResponse = {
@@ -16,5 +25,6 @@ export type OrdersResponse = {
     pageIndex: number
     perPage: number
     totalCount: number
+    hasFiltered: boolean
   }
 }

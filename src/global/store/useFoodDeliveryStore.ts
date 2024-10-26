@@ -31,7 +31,7 @@ export const useFoodDeliveryStore = create<UseFoodDeliveryStore>()(
             false,
             "setManagedRestaurant",
           ),
-        setOrders: ({ pageIndex, totalCount }) => {
+        setOrders: ({ pageIndex, totalCount, hasFiltered }) => {
           if (pageIndex < 0) return
 
           set(
@@ -39,6 +39,7 @@ export const useFoodDeliveryStore = create<UseFoodDeliveryStore>()(
               orders: {
                 pageIndex: pageIndex,
                 totalCount: totalCount ?? 0,
+                hasFiltered: hasFiltered,
               },
             }),
             false,

@@ -1,7 +1,7 @@
 import { ArrowRight, Search, X } from "lucide-react"
 import { styled } from "styled-components"
 import { StatusOrderType } from "../../Orders.types"
-import { getStatusPointerColor } from "../../utils"
+import { getStatusDetails } from "../../utils"
 
 export const S = {
   Table: styled.table`
@@ -54,8 +54,7 @@ export const S = {
     display: inline-block;
     width: 0.625rem;
     height: 0.625rem;
-    background-color: ${({ status }) =>
-      getStatusPointerColor({ status })?.color};
+    background-color: ${({ status }) => getStatusDetails({ status })?.color};
     border-radius: 50%;
     margin-right: 0.625rem;
   `,

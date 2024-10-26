@@ -2,7 +2,7 @@ import { Render } from "../../../../global/components/Render/Render"
 import {
   formatDateDistanceToNow,
   formatMoney,
-  getStatusPointerColor,
+  getStatusDetails,
 } from "../../utils"
 import { S } from "./OrderTable.styles"
 import { OrderTableProps } from "./OrderTable.types"
@@ -38,7 +38,7 @@ export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
                 <S.Td>{formatDateDistanceToNow(createdAt)}</S.Td>
                 <S.Td>
                   <S.StatusPointer status={status} />
-                  {getStatusPointerColor({ status })?.title}
+                  {getStatusDetails({ status })?.title}
                 </S.Td>
                 <S.Td>{customerName} </S.Td>
                 <S.Td>{formatMoney(total)}</S.Td>

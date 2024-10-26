@@ -63,7 +63,7 @@ export const S = {
     color: ${({ theme }) => theme.colors.white};
     transition: background-color 0.3s;
 
-    &:not(:first-child):hover {
+    &:hover {
       background-color: ${({ theme }) => theme.colors.gray_600};
       cursor: pointer;
     }

@@ -1,30 +1,50 @@
 import { Controller, useForm } from "react-hook-form"
 import { S } from "./OrderFilter.styles"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { OrderFilterSchema } from "./OrderFilter.types"
+import { OrderFilterProps, OrderFilterInput } from "./OrderFilter.types"
 import { orderFilterSchema } from "./OrderFilter.utils"
 import { Dropdown } from "../../../../global/components/DropDown"
 import { Button } from "../../../../global/components/Button"
+import { getStatusDetails } from "../../utils"
+import { useEffect, useState } from "react"
+import { useFoodDeliveryStore } from "../../../../global/store"
 
-export const OrderFilter = () => {
-  const { control, handleSubmit, reset, getValues } =
-    useForm<OrderFilterSchema>({
+export const OrderFilter = ({ onSearchSubmit }: OrderFilterProps) => {
+  const {
+    orders: { hasFiltered },
+  } = useFoodDeliveryStore()
+
+  const { control, handleSubmit, reset, getValues, watch } =
+    useForm<OrderFilterInput>({
       defaultValues: {
-        clientName: "",
+        customerName: "",
         orderId: "",
-        orderStatus: "all",
       },
       resolver: zodResolver(orderFilterSchema),
     })
 
-  const translateDropDownTitle = () => {
-    const { orderStatus } = getValues()
-    if (orderStatus === "all") return "Todos status"
-    if (orderStatus === "delivered") return "Entregue"
-    if (orderStatus === "progress") return "Em andamento"
-    if (orderStatus === "canceled") return "Cancelado"
-    return "Todos status"
+  const [allowSearchFilter, setAllowSearchFilter] = useState<boolean>(false)
+
+  const [statusSearchFilter, setStatusSearchFilter] =
+    useState<typeof <Pick<OrderFilterInput, "status">>>()
+
+  const translateDropDownTitle = (): string => {
+    return (
+      getStatusDetails({ status: statusSearchFilter?.status! })?.title ??
+      "Todos status"
+    )
   }
+
+  const getStatusToEnableFilter = () => {
+    const { customerName, orderId, status } = getValues()
+    setAllowSearchFilter(
+      !!(customerName?.length! | orderId?.length! | status?.length!),
+    )
+  }
+
+  useEffect(() => {
+    getStatusToEnableFilter()
+  }, [watch("status"), watch("customerName"), watch("orderId")])
 
   return (
     <S.Container>
@@ -36,50 +56,66 @@ export const OrderFilter = () => {
           <S.FilterInput
             value={field.value}
             placeholder="ID do pedido"
-            onChange={({ target }) => field.onChange(target.value)}
+            onChange={({ target }) => {
+              field.onChange(target.value)
+            }}
           />
         )}
       />
       <Controller
         control={control}
-        name="clientName"
+        name="customerName"
         render={({ field }) => (
           <S.FilterInput
             placeholder="Nome do cliente"
             value={field.value}
-            onChange={({ target }) => field.onChange(target.value)}
+            onChange={({ target }) => {
+              field.onChange(target.value)
+            }}
           />
         )}
       />
       <Controller
         control={control}
-        name="orderStatus"
+        name="status"
         render={({ field }) => (
           <Dropdown
             height={35}
             title={translateDropDownTitle()}
             type="filter"
             onSelectDelivered={() => {
+              setStatusSearchFilter({ status: "delivered" })
               field.onChange("delivered")
             }}
             onSelectInProgress={() => {
-              field.onChange("progress")
+              setStatusSearchFilter({ status: "processing" })
+              field.onChange("processing")
             }}
             onSelectCanceled={() => {
+              setStatusSearchFilter({ status: "canceled" })
               field.onChange("canceled")
             }}
           />
         )}
       />
       <Button
+        disabled={!allowSearchFilter}
         variant="secondary"
         typeIcon="search"
-        onClick={handleSubmit((values) => alert(JSON.stringify(values)))}
+        onClick={handleSubmit((values) => onSearchSubmit(values))}
       >
         Filtrar resultados
       </Button>
 
-      <Button variant="secondary" typeIcon="remove" onClick={() => reset()}>
+      <Button
+        disabled={!hasFiltered}
+        variant="secondary"
+        typeIcon="remove"
+        onClick={() => {
+          reset()
+          onSearchSubmit({})
+        }}
+      >
         Remover filtros
       </Button>
     </S.Container>
