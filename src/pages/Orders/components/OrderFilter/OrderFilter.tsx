@@ -26,7 +26,7 @@ export const OrderFilter = ({ onSearchSubmit }: OrderFilterProps) => {
   const [allowSearchFilter, setAllowSearchFilter] = useState<boolean>(false)
 
   const [statusSearchFilter, setStatusSearchFilter] =
-    useState<typeof <Pick<OrderFilterInput, "status">>>()
+    useState<Pick<OrderFilterInput, "status">>()
 
   const translateDropDownTitle = (): string => {
     return (
