@@ -30,7 +30,7 @@ export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
             ({ createdAt, customerName, orderId, status, total }) => (
               <S.Tr key={orderId}>
                 <S.Td>
-                  <S.ButtonSearch onClick={onOpenDetails}>
+                  <S.ButtonSearch onClick={() => onOpenDetails(orderId)}>
                     <S.SearchIcon />
                   </S.ButtonSearch>
                 </S.Td>

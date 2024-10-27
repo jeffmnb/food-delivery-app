@@ -4,11 +4,13 @@ import { useOrdersService } from "../../services/orders/orders.service"
 import { useFoodDeliveryStore } from "../../global/store"
 import { getRealIndexTotalCount } from "./utils"
 import { OrderFilterInput } from "./components/OrderFilter/OrderFilter.types"
+import { openOrderModal } from "./components/OrderModal"
+import { showToast } from "../../global/components/Toast"
 
 export const useOrdersPage = () => {
   const [ordersDetails, setOrdersDetails] = useState<OrdersResponse>()
   const [isLoadingOrders, setIsLoadingOrders] = useState<boolean>(true)
-  const { getOrders } = useOrdersService()
+  const { getOrders, getOrderDetails } = useOrdersService()
   const {
     orders: { pageIndex },
     setOrders,
@@ -39,6 +41,20 @@ export const useOrdersPage = () => {
       .finally(() => setIsLoadingOrders(false))
   }
 
+  const getOrderDetailsData = async (orderId: string) => {
+    await getOrderDetails({ orderId })
+      .then(({ data }) => {
+        openOrderModal({ orderDetails: data })
+      })
+      .catch(() =>
+        showToast({
+          message: "Não foi possível obter o detalhes do pedido.",
+          type: "error",
+          duration: 3000,
+        }),
+      )
+  }
+
   useEffect(() => {
     getOrdersData({})
   }, [pageIndex])
@@ -47,5 +63,6 @@ export const useOrdersPage = () => {
     ordersDetails,
     isLoadingOrders,
     getOrdersData,
+    getOrderDetailsData,
   }
 }

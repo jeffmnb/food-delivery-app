@@ -129,6 +129,7 @@ export const S = {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0.8rem;
+    margin-top: 0.2rem;
   `,
   TotalLabel: styled.p`
     color: ${({ theme }) => theme.colors.white};

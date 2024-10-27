@@ -6,4 +6,5 @@ export type StatusOrderType = {
     | "delivering"
     | "delivered"
     | "all"
+    | StatusOrderType
 }

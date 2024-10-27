@@ -1,5 +1,5 @@
 import { client, queryClient } from "../server"
-import { OrdersRequest, OrdersResponse } from "./orders.types"
+import { OrderDetails, OrdersRequest, OrdersResponse } from "./orders.types"
 
 export const useOrdersService = () => {
   const getOrdersService = async (variables: OrdersRequest) => {
@@ -7,7 +7,7 @@ export const useOrdersService = () => {
     return await client
       .get<OrdersResponse>("/orders", { params: variables })
       .catch((err) => {
-        console.error("@services/updateProfile.service.ts/updateProfile", err)
+        console.error("@services/orders.service/getOrdersService", err)
         throw err
       })
   }
@@ -19,5 +19,19 @@ export const useOrdersService = () => {
     })
   }
 
-  return { getOrders }
+  const getOrderDetailsService = async ({ orderId }: { orderId: string }) => {
+    return await client.get<OrderDetails>(`/orders/${orderId}`).catch((err) => {
+      console.error("@services/orders.service/getOrderDetailsService", err)
+      throw err
+    })
+  }
+
+  const getOrderDetails = async ({ orderId }: { orderId: string }) => {
+    return await queryClient.fetchQuery({
+      queryKey: ["getOrderDetailsService"],
+      queryFn: () => getOrderDetailsService({ orderId }),
+    })
+  }
+
+  return { getOrders, getOrderDetails }
 }

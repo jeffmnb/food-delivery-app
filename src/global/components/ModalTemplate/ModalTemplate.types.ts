@@ -1,5 +1,5 @@
 export type ModalTemplateRef = {
-  open: () => void
+  open: (params?: any) => void
   close: () => void
 }
 
