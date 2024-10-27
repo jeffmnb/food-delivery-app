@@ -10,7 +10,7 @@ import { showToast } from "../../global/components/Toast"
 export const useOrdersPage = () => {
   const [ordersDetails, setOrdersDetails] = useState<OrdersResponse>()
   const [isLoadingOrders, setIsLoadingOrders] = useState<boolean>(true)
-  const { getOrders, getOrderDetails } = useOrdersService()
+  const { getOrders, getOrderDetails, cancelOrder } = useOrdersService()
   const {
     orders: { pageIndex },
     setOrders,
@@ -55,6 +55,35 @@ export const useOrdersPage = () => {
       )
   }
 
+  const handleCancelOrder = async (orderId: string) => {
+    return showToast({
+      message: "Deseja cancelar o pedido?",
+      type: "warning",
+      duration: 10000,
+      action: {
+        label: "Cancelar",
+        onClick: () =>
+          cancelOrder({ orderId })
+            .then(() =>
+              getOrdersData({}).then(() =>
+                showToast({
+                  message: "Pedido cancelado com sucesso!",
+                  type: "success",
+                  duration: 3000,
+                }),
+              ),
+            )
+            .catch(() =>
+              showToast({
+                message: "Não foi possível cancelar o pedido",
+                type: "error",
+                duration: 3000,
+              }),
+            ),
+      },
+    })
+  }
+
   useEffect(() => {
     getOrdersData({})
   }, [pageIndex])
@@ -63,6 +92,7 @@ export const useOrdersPage = () => {
     ordersDetails,
     isLoadingOrders,
     getOrdersData,
+    handleCancelOrder,
     getOrderDetailsData,
   }
 }

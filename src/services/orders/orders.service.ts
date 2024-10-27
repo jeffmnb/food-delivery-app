@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query"
 import { client, queryClient } from "../server"
 import { OrderDetails, OrdersRequest, OrdersResponse } from "./orders.types"
 
@@ -33,5 +34,17 @@ export const useOrdersService = () => {
     })
   }
 
-  return { getOrders, getOrderDetails }
+  const cancelOrderService = async ({ orderId }: { orderId: string }) => {
+    return await client.patch(`/orders/${orderId}/cancel`).catch((err) => {
+      console.error("@services/orders.service/cancelOrderService", err)
+      throw err
+    })
+  }
+
+  const { mutateAsync: cancelOrder } = useMutation({
+    mutationFn: cancelOrderService,
+    mutationKey: ["cancelOrderService"],
+  })
+
+  return { getOrders, getOrderDetails, cancelOrder }
 }

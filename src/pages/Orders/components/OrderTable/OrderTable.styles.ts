@@ -88,9 +88,14 @@ export const S = {
     border: 1px ${({ theme }) => theme.colors.gray_600} solid;
     transition: background-color 0.3s;
 
-    &:hover {
+    &:not(:disabled):hover {
       cursor: pointer;
       background-color: ${({ theme }) => theme.colors.gray_600};
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
     }
   `,
   X: styled(X).attrs({ size: 18 })``,

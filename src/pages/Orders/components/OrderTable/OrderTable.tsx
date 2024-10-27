@@ -1,4 +1,5 @@
 import { Render } from "../../../../global/components/Render/Render"
+import { Orders } from "../../../../services/orders/orders.types"
 import {
   formatDateDistanceToNow,
   formatMoney,
@@ -7,8 +8,17 @@ import {
 import { S } from "./OrderTable.styles"
 import { OrderTableProps } from "./OrderTable.types"
 
-export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
+export const OrderTable = ({
+  onOpenDetails,
+  onCancelOrder,
+  orders,
+}: OrderTableProps) => {
   const hasOrders = !!orders?.length
+
+  const allowCancelOrder = ({ status }: Pick<Orders, "status">) => {
+    if (status === "pending" || status === "processing") return false
+    return true
+  }
 
   return (
     <S.Table>
@@ -49,7 +59,10 @@ export const OrderTable = ({ onOpenDetails, orders }: OrderTableProps) => {
                   </S.ButtonApprove>
                 </S.Td>
                 <S.Td>
-                  <S.ButtonCancel>
+                  <S.ButtonCancel
+                    onClick={() => onCancelOrder(orderId)}
+                    disabled={allowCancelOrder({ status })}
+                  >
                     <S.X />
                     <p>Cancelar</p>
                   </S.ButtonCancel>

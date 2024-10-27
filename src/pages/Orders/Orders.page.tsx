@@ -11,8 +11,13 @@ import { useOrdersPage } from "./Orders.logic"
 import { S } from "./Orders.styles"
 
 export const OrdersPage = () => {
-  const { ordersDetails, isLoadingOrders, getOrdersData, getOrderDetailsData } =
-    useOrdersPage()
+  const {
+    ordersDetails,
+    isLoadingOrders,
+    getOrdersData,
+    getOrderDetailsData,
+    handleCancelOrder,
+  } = useOrdersPage()
 
   return (
     <S.Container>
@@ -26,6 +31,7 @@ export const OrdersPage = () => {
       <Render.If isTrue={!isLoadingOrders}>
         <OrderFilter onSearchSubmit={getOrdersData} />
         <OrderTable
+          onCancelOrder={handleCancelOrder}
           orders={ordersDetails?.orders!}
           onOpenDetails={(orderId) => getOrderDetailsData(orderId)}
         />

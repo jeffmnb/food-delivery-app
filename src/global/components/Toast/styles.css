@@ -8,3 +8,8 @@ li {
 .closeButton {
     margin-left: 98%;
 }
+
+.actionButton {
+    position: relative;
+    right: 0.5rem;
+}

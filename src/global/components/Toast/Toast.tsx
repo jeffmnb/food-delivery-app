@@ -22,7 +22,10 @@ export const Toast = ({
           setTimeout(() => {
             onAutoClose?.()
           }, 500),
-        classNames: { closeButton: "closeButton" },
+        classNames: {
+          closeButton: "closeButton",
+          actionButton: "actionButton",
+        },
       }),
   }))
 
