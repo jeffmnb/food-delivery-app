@@ -9,8 +9,9 @@ import { S } from "./OrderTable.styles"
 import { OrderTableProps } from "./OrderTable.types"
 
 export const OrderTable = ({
-  onOpenDetails,
+  onStepOrder,
   onCancelOrder,
+  onOpenDetails,
   orders,
 }: OrderTableProps) => {
   const hasOrders = !!orders?.length
@@ -18,6 +19,22 @@ export const OrderTable = ({
   const allowCancelOrder = ({ status }: Pick<Orders, "status">) => {
     if (status === "pending" || status === "processing") return false
     return true
+  }
+
+  const getStepOrder = ({
+    status,
+    orderId,
+  }: {
+    status: any
+    orderId: string
+  }) => {
+    if (status === "processing")
+      return { label: "Em entrega", fn: () => onStepOrder(orderId, "dispatch") }
+
+    if (status === "delivering")
+      return { label: "Entregue", fn: () => onStepOrder(orderId, "deliver") }
+
+    return { label: "Aprovar", fn: () => onStepOrder(orderId, "approve") }
   }
 
   return (
@@ -53,14 +70,23 @@ export const OrderTable = ({
                 <S.Td>{customerName} </S.Td>
                 <S.Td>{formatMoney(total)}</S.Td>
                 <S.Td>
-                  <S.ButtonApprove>
+                  <S.ButtonApprove
+                    disabled={
+                      !(
+                        status === "pending" ||
+                        status === "processing" ||
+                        status === "delivering"
+                      )
+                    }
+                    onClick={() => getStepOrder({ status, orderId })?.fn()}
+                  >
                     <S.ArrowRight />
-                    Aprovar
+                    {getStepOrder({ status, orderId })?.label}
                   </S.ButtonApprove>
                 </S.Td>
                 <S.Td>
                   <S.ButtonCancel
-                    onClick={() => onCancelOrder(orderId)}
+                    onClick={() => onCancelOrder(orderId, "cancel")}
                     disabled={allowCancelOrder({ status })}
                   >
                     <S.X />

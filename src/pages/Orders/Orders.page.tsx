@@ -15,8 +15,9 @@ export const OrdersPage = () => {
     ordersDetails,
     isLoadingOrders,
     getOrdersData,
-    getOrderDetailsData,
     handleCancelOrder,
+    getOrderDetailsData,
+    handleNextStepOrder,
   } = useOrdersPage()
 
   return (
@@ -31,6 +32,7 @@ export const OrdersPage = () => {
       <Render.If isTrue={!isLoadingOrders}>
         <OrderFilter onSearchSubmit={getOrdersData} />
         <OrderTable
+          onStepOrder={handleNextStepOrder}
           onCancelOrder={handleCancelOrder}
           orders={ordersDetails?.orders!}
           onOpenDetails={(orderId) => getOrderDetailsData(orderId)}

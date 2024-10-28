@@ -74,6 +74,16 @@ export const S = {
       cursor: pointer;
       background-color: ${({ theme }) => theme.colors.gray_600};
     }
+
+    &:not(:disabled):hover {
+      cursor: pointer;
+      background-color: ${({ theme }) => theme.colors.gray_600};
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
   `,
   ArrowRight: styled(ArrowRight).attrs({ size: 18 })``,
   ButtonCancel: styled.button`

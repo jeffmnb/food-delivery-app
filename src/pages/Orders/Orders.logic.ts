@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
-import { OrdersResponse } from "../../services/orders/orders.types"
+import {
+  ActionStatus,
+  OrdersResponse,
+} from "../../services/orders/orders.types"
 import { useOrdersService } from "../../services/orders/orders.service"
 import { useFoodDeliveryStore } from "../../global/store"
 import { getRealIndexTotalCount } from "./utils"
@@ -10,7 +13,7 @@ import { showToast } from "../../global/components/Toast"
 export const useOrdersPage = () => {
   const [ordersDetails, setOrdersDetails] = useState<OrdersResponse>()
   const [isLoadingOrders, setIsLoadingOrders] = useState<boolean>(true)
-  const { getOrders, getOrderDetails, cancelOrder } = useOrdersService()
+  const { getOrders, getOrderDetails, updateOrderStatus } = useOrdersService()
   const {
     orders: { pageIndex },
     setOrders,
@@ -55,7 +58,7 @@ export const useOrdersPage = () => {
       )
   }
 
-  const handleCancelOrder = async (orderId: string) => {
+  const handleCancelOrder = async (orderId: string, action: ActionStatus) => {
     return showToast({
       message: "Deseja cancelar o pedido?",
       type: "warning",
@@ -63,7 +66,7 @@ export const useOrdersPage = () => {
       action: {
         label: "Cancelar",
         onClick: () =>
-          cancelOrder({ orderId })
+          updateOrderStatus({ orderId, action: action })
             .then(() =>
               getOrdersData({}).then(() =>
                 showToast({
@@ -84,6 +87,26 @@ export const useOrdersPage = () => {
     })
   }
 
+  const handleNextStepOrder = async (orderId: string, action: ActionStatus) => {
+    return await updateOrderStatus({ orderId, action: action })
+      .then(() => {
+        getOrdersData({}).then(() =>
+          showToast({
+            message: "Pedido atualizado!",
+            type: "success",
+            duration: 3000,
+          }),
+        )
+      })
+      .catch(() =>
+        showToast({
+          message: "Não foi possível atualizar o status do pedido.",
+          type: "error",
+          duration: 3000,
+        }),
+      )
+  }
+
   useEffect(() => {
     getOrdersData({})
   }, [pageIndex])
@@ -94,5 +117,6 @@ export const useOrdersPage = () => {
     getOrdersData,
     handleCancelOrder,
     getOrderDetailsData,
+    handleNextStepOrder,
   }
 }

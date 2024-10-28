@@ -52,3 +52,5 @@ export type OrderItem = {
   quantity: number
   product: { name: string }
 }
+
+export type ActionStatus = "cancel" | "approve" | "deliver" | "dispatch"
