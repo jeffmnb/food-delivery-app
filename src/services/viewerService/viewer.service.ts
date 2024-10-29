@@ -6,7 +6,6 @@ export const useViewerService = () => {
     await new Promise((resolve) => setTimeout(resolve, 2000))
     return await client.get<Viewer>("/me").catch((err) => {
       console.error("@services/viewer.service.ts/getViewer", err)
-
       throw err
     })
   }
