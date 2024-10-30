@@ -16,9 +16,10 @@ export const S = {
     border: 1px ${({ theme }) => theme.colors.gray_600} solid;
     width: 100%;
     padding: 0.625rem;
+    transition: border 0.5s;
 
     &:focus {
-      border: 1px ${({ theme }) => theme.colors.gray_500} solid;
+      border: 1px ${({ theme }) => theme.colors.gray_400} solid;
     }
   `,
   TextArea: styled.textarea`

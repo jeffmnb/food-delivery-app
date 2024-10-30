@@ -21,5 +21,10 @@ export const S = {
     border-radius: 0.3125rem;
     padding: 0.4375rem 0.625rem;
     color: ${({ theme }) => theme.colors.white};
+    transition: border 0.5s;
+
+    &:focus {
+      border: 1px ${({ theme }) => theme.colors.gray_400} solid;
+    }
   `,
 }

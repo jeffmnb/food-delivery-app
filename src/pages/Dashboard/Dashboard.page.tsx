@@ -49,12 +49,8 @@ export const DashboardPage = () => {
         <S.Charts>
           <S.RevenueChartWrapper>
             <S.RevenueChartHeader>
-              <div>
-                <S.Title>Receita no período</S.Title>
-                <S.Subtitle>Receita diária no período</S.Subtitle>
-              </div>
-
-              <p>MyDatePicker</p>
+              <S.Title>Receita no período</S.Title>
+              <S.Subtitle>Receita diária no período</S.Subtitle>
             </S.RevenueChartHeader>
             <RevenueChart
               revenues={metrics?.dailyReceiptInPeriod! as Revenues[]}
