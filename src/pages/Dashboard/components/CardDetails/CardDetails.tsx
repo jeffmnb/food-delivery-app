@@ -4,25 +4,35 @@ import { CardDetailsProps } from "./CardDetails.types"
 export const CardDetails = ({
   title,
   type = "order",
-  value,
+  cardKey,
+  metrics,
   period = "monthly",
 }: CardDetailsProps) => {
   const renderValue = () => {
-    if (type === "money") {
+    if (type === "money" && cardKey === "monthReceipt") {
       return new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
-      }).format(value)
+      }).format(metrics?.receipt!)
     }
+    return metrics?.amount
+  }
 
-    return value
+  const getTypeMetric = () => {
+    switch (cardKey) {
+      case "dayOrdersAmount":
+        return metrics?.diffFromYesterday
+      default:
+        return metrics?.diffFromLastMonth
+    }
   }
 
   const renderPercentage = () => {
-    const value = 19
-    if (value > 0)
-      return <S.Percentage variant={"positive"}>+{value}%</S.Percentage>
-    return <S.Percentage variant={"negative"}>-{value}%</S.Percentage>
+    if (metrics?.diffFromLastMonth! >= 0 || metrics?.diffFromYesterday! >= 0)
+      return (
+        <S.Percentage variant={"positive"}>+{getTypeMetric()}%</S.Percentage>
+      )
+    return <S.Percentage variant={"negative"}>{getTypeMetric()}%</S.Percentage>
   }
 
   const renderDescription = () => {

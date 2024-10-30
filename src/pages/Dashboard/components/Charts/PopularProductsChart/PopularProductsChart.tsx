@@ -6,16 +6,13 @@ import {
   PieLabelRenderProps,
 } from "recharts"
 import { COLORS } from "../utils/chart.utils"
+import { PopularProducts } from "../../../../../services/metrics/metrics.types"
 
-const data = [
-  { product: "Pepperoni", amount: 40 },
-  { product: "Mussarela", amount: 30 },
-  { product: "Marguerita", amount: 50 },
-  { product: "4 Queijos", amount: 16 },
-  { product: "Frango frito", amount: 26 },
-]
-
-export const PopularProductsChart = () => {
+export const PopularProductsChart = ({
+  products,
+}: {
+  products: PopularProducts[]
+}) => {
   const getFavoriteProductsLabel = ({
     cx,
     cy,
@@ -41,9 +38,9 @@ export const PopularProductsChart = () => {
         dominantBaseline="central"
         fill="#ababab"
       >
-        {data[index!].product.length > 12
-          ? data[index!].product.substring(0, 12).concat("...")
-          : data[index!].product}{" "}
+        {products[index!].product.length > 12
+          ? products[index!].product.substring(0, 12).concat("...")
+          : products[index!].product}{" "}
         ({value})
       </text>
     )
@@ -53,7 +50,7 @@ export const PopularProductsChart = () => {
     <ResponsiveContainer width="100%" height={240}>
       <PieChart style={{ fontSize: 12, color: "#3838" }}>
         <Pie
-          data={data}
+          data={products}
           nameKey="product"
           dataKey="amount"
           cx="50%"
@@ -65,7 +62,7 @@ export const PopularProductsChart = () => {
           label={getFavoriteProductsLabel}
           paddingAngle={5}
         >
-          {data.map((_, index) => {
+          {products?.map((_, index) => {
             return <Cell key={`cell-${index}`} fill={COLORS[index]} />
           })}
         </Pie>

@@ -1,10 +1,16 @@
 import { LucideProps } from "lucide-react"
+import { MetricsOrders } from "../../../../services/metrics/metrics.types"
 
 export type CardDetailsProps = {
   title: string
-  value: number
+  metrics: MetricsOrders
   type?: "money" | "order"
   period?: "daily" | "monthly"
+  cardKey:
+    | "monthReceipt"
+    | "monthOrdersAmount"
+    | "dayOrdersAmount"
+    | "monthCanceledOrdersAmount"
 }
 
 export type CardDetailsIcon = {

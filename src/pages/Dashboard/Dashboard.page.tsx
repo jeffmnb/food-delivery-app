@@ -7,9 +7,11 @@ import { RevenueChart } from "./components/Charts/RevenueChart/RevenueChart"
 import { EditProfileModal } from "./components/EditProfileModal"
 import { S } from "./Dashboard.styles"
 import { useDashboardPage } from "./Dashboard.logic"
+import { Revenues } from "./components/Charts/RevenueChart/RevenueChart.types"
 
 export const DashboardPage = () => {
-  const { isLoading } = useDashboardPage()
+  const { isLoading, metrics } = useDashboardPage()
+
   return (
     <S.Container>
       <S.TitlePage>Dashboard</S.TitlePage>
@@ -20,10 +22,28 @@ export const DashboardPage = () => {
 
       <Render.If isTrue={!isLoading}>
         <S.CardsWrapper>
-          <CardDetails title="Receita total (mês)" type="money" value={1248} />
-          <CardDetails title="Pedidos (mês)" value={246} />
-          <CardDetails title="Pedidos (dia)" period="daily" value={12} />
-          <CardDetails title="Cancelamento (mês)" value={32} />
+          <CardDetails
+            cardKey="monthReceipt"
+            title="Receita total (mês)"
+            type="money"
+            metrics={metrics?.monthReceipt!}
+          />
+          <CardDetails
+            cardKey="monthOrdersAmount"
+            title="Pedidos (mês)"
+            metrics={metrics?.monthOrdersAmount!}
+          />
+          <CardDetails
+            cardKey="dayOrdersAmount"
+            title="Pedidos (dia)"
+            period="daily"
+            metrics={metrics?.dayOrdersAmount!}
+          />
+          <CardDetails
+            cardKey="monthCanceledOrdersAmount"
+            title="Cancelamento (mês)"
+            metrics={metrics?.monthCanceledOrdersAmount!}
+          />
         </S.CardsWrapper>
 
         <S.Charts>
@@ -36,12 +56,14 @@ export const DashboardPage = () => {
 
               <p>MyDatePicker</p>
             </S.RevenueChartHeader>
-            <RevenueChart />
+            <RevenueChart
+              revenues={metrics?.dailyReceiptInPeriod! as Revenues[]}
+            />
           </S.RevenueChartWrapper>
 
           <S.PopularProductsChartWrapper>
             <S.Title>Produtos populares</S.Title>
-            <PopularProductsChart />
+            <PopularProductsChart products={metrics?.popularProducts!} />
           </S.PopularProductsChartWrapper>
         </S.Charts>
       </Render.If>
