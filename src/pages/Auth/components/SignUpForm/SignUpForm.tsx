@@ -3,8 +3,8 @@ import { S } from "./SignUpForm.styles"
 import { SignUpFormProps, SignUpFormSchema } from "./SignUpForm.types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signUpFormSchema } from "./SignUpForm.utils"
-import { Button } from "../../../../global/components/Button/Button"
-import { Input } from "../../../../global/components/Input"
+import { Input } from "@/global/components/Input"
+import { Button } from "@/global/components/Button"
 
 export const SignUpForm = ({ onClickSignUp }: SignUpFormProps) => {
   const {

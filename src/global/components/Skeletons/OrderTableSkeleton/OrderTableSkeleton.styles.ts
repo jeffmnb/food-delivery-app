@@ -1,6 +1,6 @@
+import { defaultTheme } from "@/global/styles/theme"
 import ContentLoader from "react-content-loader"
 import { styled } from "styled-components"
-import { defaultTheme } from "../../../styles/theme"
 
 export const S = {
   Container: styled.div`

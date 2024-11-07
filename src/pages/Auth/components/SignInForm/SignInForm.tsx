@@ -3,8 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { S } from "./SignInForm.styles"
 import { SignInFormProps, SignInFormSchemaType } from "./SignInForm.types"
 import { signInFormSchema } from "./SignInForm.utils"
-import { Button } from "../../../../global/components/Button"
-import { Input } from "../../../../global/components/Input"
+import { Input } from "@/global/components/Input"
+import { Button } from "@/global/components/Button"
 
 export const SignInForm = ({ onClickSignIn }: SignInFormProps) => {
   const {

@@ -6,7 +6,7 @@ import {
   PieLabelRenderProps,
 } from "recharts"
 import { COLORS } from "../utils/chart.utils"
-import { PopularProducts } from "../../../../../services/metrics/metrics.types"
+import { PopularProducts } from "@/services/metrics/metrics.types"
 
 export const PopularProductsChart = ({
   products,

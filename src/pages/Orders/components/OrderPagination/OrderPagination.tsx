@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { useFoodDeliveryStore } from "../../../../global/store"
 import { S } from "./OrderPagination.styles"
 import { ActionSteps, OrderPaginationProps } from "./OrderPagination.types"
+import { useFoodDeliveryStore } from "@/global/store"
 
 export const OrderPagination = ({
   perPage,

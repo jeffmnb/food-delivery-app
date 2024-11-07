@@ -1,5 +1,5 @@
-import { Render } from "../../../../global/components/Render/Render"
-import { Orders } from "../../../../services/orders/orders.types"
+
+import { Orders } from "@/services/orders/orders.types"
 import {
   formatDateDistanceToNow,
   formatMoney,
@@ -7,6 +7,7 @@ import {
 } from "../../utils"
 import { S } from "./OrderTable.styles"
 import { OrderTableProps } from "./OrderTable.types"
+import { Render } from "@/global/components/Render/Render"
 
 export const OrderTable = ({
   onStepOrder,

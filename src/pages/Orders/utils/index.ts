@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { StatusOrderType } from "../Orders.types"
-import { defaultTheme } from "../../../global/styles/theme"
+import { defaultTheme } from "@/global/styles/theme"
 
 export const formatDateDistanceToNow = (date: Date) => {
   return formatDistanceToNow(date, { addSuffix: true, locale: ptBR })

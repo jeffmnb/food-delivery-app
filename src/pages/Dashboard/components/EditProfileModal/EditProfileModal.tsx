@@ -1,5 +1,4 @@
 import { createRef } from "react"
-import { ModalTemplate } from "../../../../global/components/ModalTemplate"
 import {
   EditProfileFormSchema,
   EditProfileModalRef,
@@ -8,9 +7,10 @@ import { Controller, useForm } from "react-hook-form"
 import { editProfileFormSchema } from "./EditProfileModal.utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { S } from "./EditProfileModal.styles"
-import { useUpdateProfile } from "../../../../services/updateProfileService/updateProfile.service"
-import { showToast } from "../../../../global/components/Toast"
-import { useFoodDeliveryStore } from "../../../../global/store"
+import { useUpdateProfile } from "@/services/updateProfileService/updateProfile.service"
+import { useFoodDeliveryStore } from "@/global/store"
+import { showToast } from "@/global/components/Toast"
+import { ModalTemplate } from "@/global/components/ModalTemplate"
 
 const editProfileModalRef = createRef<EditProfileModalRef>()
 export const openEditProfileModal = () => editProfileModalRef.current?.open()

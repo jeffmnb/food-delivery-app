@@ -1,15 +1,15 @@
 import { createRef, useImperativeHandle, useState } from "react"
 import { OrderModalParamsRef, OrderModalRef } from "./OrderModal.types"
 
-import { ModalTemplate } from "../../../../global/components/ModalTemplate"
 import { S } from "./OrderModal.styles"
-import { OrderDetails } from "../../../../services/orders/orders.types"
 import {
   formatDateDistanceToNow,
   formatMoney,
   getStatusDetails,
 } from "../../utils"
-import { Render } from "../../../../global/components/Render/Render"
+import { OrderDetails } from "@/services/orders/orders.types"
+import { ModalTemplate } from "@/global/components/ModalTemplate"
+import { Render } from "@/global/components/Render/Render"
 
 const orderModalRef = createRef<OrderModalRef>()
 const orderModalParamRef = createRef<OrderModalParamsRef>()

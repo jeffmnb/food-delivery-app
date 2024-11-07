@@ -1,5 +1,5 @@
+import { DynamicText } from "@/global/components/DynamicText"
 import { styled } from "styled-components"
-import { DynamicText } from "../../../../global/components/DynamicText"
 
 export const S = {
   Container: styled.div`

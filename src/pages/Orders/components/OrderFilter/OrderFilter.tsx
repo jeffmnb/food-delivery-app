@@ -3,11 +3,11 @@ import { S } from "./OrderFilter.styles"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { OrderFilterProps, OrderFilterInput } from "./OrderFilter.types"
 import { orderFilterSchema } from "./OrderFilter.utils"
-import { Dropdown } from "../../../../global/components/DropDown"
-import { Button } from "../../../../global/components/Button"
 import { getStatusDetails } from "../../utils"
 import { useEffect, useState } from "react"
-import { useFoodDeliveryStore } from "../../../../global/store"
+import { useFoodDeliveryStore } from "@/global/store"
+import { Dropdown } from "@/global/components/DropDown"
+import { Button } from "@/global/components/Button"
 
 export const OrderFilter = ({ onSearchSubmit }: OrderFilterProps) => {
   const {

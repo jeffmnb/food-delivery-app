@@ -1,4 +1,5 @@
-import { defaultTheme } from "../../../../../global/styles/theme"
+import { defaultTheme } from "@/global/styles/theme";
+
 
 export const COLORS = [
   defaultTheme.colors.yellow_500,

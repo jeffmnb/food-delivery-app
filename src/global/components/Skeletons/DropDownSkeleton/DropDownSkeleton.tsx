@@ -1,5 +1,5 @@
+import { defaultTheme } from "@/global/styles/theme"
 import ContentLoader from "react-content-loader"
-import { defaultTheme } from "../../../styles/theme"
 
 export const DropDownSkeleton = () => (
   <ContentLoader

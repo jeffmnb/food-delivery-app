@@ -1,5 +1,5 @@
+import { MetricsOrders } from "@/services/metrics/metrics.types"
 import { LucideProps } from "lucide-react"
-import { MetricsOrders } from "../../../../services/metrics/metrics.types"
 
 export type CardDetailsProps = {
   title: string

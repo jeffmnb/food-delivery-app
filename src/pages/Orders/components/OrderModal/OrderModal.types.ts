@@ -1,4 +1,5 @@
-import { OrderDetails } from "../../../../services/orders/orders.types"
+import { OrderDetails } from "@/services/orders/orders.types"
+
 
 export type OrderModalRef = {
   open: (orderDetails: OrderDetails) => void

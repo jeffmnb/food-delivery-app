@@ -1,4 +1,5 @@
-import { ActionStatus, Orders } from "../../../../services/orders/orders.types"
+import { ActionStatus, Orders } from "@/services/orders/orders.types"
+
 
 export type OrderTableProps = {
   onOpenDetails: (orderId: string) => void
